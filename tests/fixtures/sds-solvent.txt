@@ -1,0 +1,51 @@
+SAFETY DATA SHEET
+Product name: KARRA CLEAN Solvent Wash 5L
+Brightwell Coatings Pty Ltd (fictional example)
+Issue date: 14 March 2023   Revision: 3.1
+
+SECTION 1: Identification
+Product identifier: KARRA CLEAN Solvent Wash
+Recommended use: Cleaning solvent for tools and surfaces.
+Supplier: Brightwell Coatings Pty Ltd, 12 Example Street, Exampleville
+Emergency telephone number: 1800 555 0142 (24 hours)
+Poisons Information Centre: 13 11 26
+
+SECTION 2: Hazards identification
+GHS classification: Flammable liquid Category 2; Eye irritation Category 2A; Specific target organ toxicity single exposure Category 3 (drowsiness).
+Signal word: DANGER
+Hazard statements: H225 Highly flammable liquid and vapour. H319 Causes serious eye irritation. H336 May cause drowsiness or dizziness.
+Precautionary statements: P210 Keep away from heat, hot surfaces, sparks, open flames. P233 Keep container tightly closed. P305+P351+P338 IF IN EYES: Rinse cautiously with water for several minutes.
+Poisons Standard (SUSMP): Not scheduled.
+
+SECTION 3: Composition
+Ethanol  64-17-5  60-80 %
+Propan-2-ol  67-63-0  10-30 %
+
+SECTION 4: First aid measures
+Eyes: rinse with water. Swallowed: do not induce vomiting, call a doctor.
+
+SECTION 5: Fire fighting measures
+Use alcohol resistant foam, CO2, dry chemical. Hazchem code: •3YE
+
+SECTION 6: Accidental release measures
+Remove ignition sources. Absorb with inert material.
+
+SECTION 7: Handling and storage
+Store in a cool, well ventilated place away from ignition sources. Keep lids on containers.
+
+SECTION 8: Exposure controls
+Use local exhaust ventilation. Wear safety glasses and chemical resistant gloves.
+
+SECTION 9: Physical and chemical properties
+Appearance: clear liquid. Flash point: 14 C.
+
+SECTION 14: Transport information
+14.1 UN number: 1993
+14.2 Proper shipping name: FLAMMABLE LIQUID, N.O.S. (ethanol, propan-2-ol)
+14.3 Transport hazard class: Class 3
+14.4 Packing group: II
+Hazchem code: 3 YE
+Subsidiary risk: None allocated
+
+SECTION 16: Other information
+Reference number 1203 in the supplier's internal catalogue. Prepared 2 February 2023.

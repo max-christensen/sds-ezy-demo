@@ -1,0 +1,38 @@
+# SDS EZY: Worker configuration.
+#
+# This committed file is a PLACEHOLDER. It holds names only: no real IDs, no account details, no secrets. The
+# "Deploy to Cloudflare" button reads it, creates the D1 database and R2 bucket named below in the deployer's
+# own account, and fills in the real database ID for that deploy. To deploy by hand instead, follow "Set it up"
+# in the README (it asks you to put your own database ID in place of REPLACE_WITH_YOUR_DATABASE_ID).
+#
+# If you work on this code and keep your own IDs in this file, tell git to ignore your local edits so they are
+# never committed:  git update-index --skip-worktree wrangler.toml   (see docs/DEPLOY.md).
+name = "sds-ezy-demo"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+# Let the Worker handle /api/* itself; everything else is served as a static file
+run_worker_first = ["/api/*"]
+
+# Cloudflare Workers AI: the no-setup default for reading safety data sheets.
+# Remove this block if you only want to use your own Claude / OpenAI / Gemini key.
+[ai]
+binding = "AI"
+
+[vars]
+# Sender for the emailed login code (only used when RESEND_API_KEY is set). Resend only delivers from
+# onboarding@resend.dev to your own Resend account address; for real use, verify a domain in Resend and
+# set e.g. "SDS EZY <login@yourdomain.com>".
+MAIL_FROM = "SDS EZY <onboarding@resend.dev>"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "sds-ezy-db"
+database_id = "a0cee23d-99eb-4dde-9f3b-95157a6bec0c"
+
+[[r2_buckets]]
+binding = "FILES"
+bucket_name = "sds-ezy-files"

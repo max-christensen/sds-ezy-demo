@@ -1,0 +1,37 @@
+SAFETY DATA SHEET
+Karrawong Building Products (fictional example)
+Date of issue: 2021-08-09
+Version 5
+
+SECTION 1: Identification
+Products covered by this SDS:
+FinishCoat Plaster Light (code KP-101)
+FinishCoat Plaster Standard (code KP-102)
+FinishCoat Plaster Quick (code KP-103)
+FinishCoat Plaster Base (code KP-104)
+Recommended use: Interior wall plastering.
+Emergency telephone: +61 2 5550 0199
+
+SECTION 2: Hazards identification
+Classified as hazardous according to the model WHS Regulations.
+Skin irritation Category 2; Serious eye damage Category 1.
+Signal word: Danger
+Hazard statements: H315 Causes skin irritation. H318 Causes serious eye damage.
+Precautionary statements: P280 Wear protective gloves/eye protection. P305+P351+P338 IF IN EYES: rinse cautiously.
+Not classified as dangerous goods.
+
+SECTION 3: Composition
+Calcium sulfate hemihydrate 26499-65-0 60-100 %
+Calcium hydroxide 1305-62-0 1-5 %
+
+SECTION 7: Handling and storage
+Keep dry. Avoid dust generation.
+
+SECTION 8: Exposure controls
+Use in well ventilated areas. Wear a P2 dust mask, safety glasses and gloves.
+
+SECTION 9: Physical and chemical properties
+Appearance: white powder.
+
+SECTION 14: Transport information
+Not regulated for transport. UN number: not applicable. Hazchem: not applicable.

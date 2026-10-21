@@ -1,0 +1,23 @@
+# Local secrets (never commit these)
+.dev.vars
+.env
+
+# Local state and files that must stay out of the repo
+.wrangler/
+seed-local/
+CLAUDE.md
+.claude/
+
+node_modules/
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+*.log
+.mcp.json
+BRIEF.md
+# Your own local Wrangler settings (never committed). wrangler.toml is the committed PLACEHOLDER; see docs/DEPLOY.md
+wrangler.local.toml
+wrangler.generated.toml
+.claude-flow/
+info/

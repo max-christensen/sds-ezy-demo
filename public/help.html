@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDS EZY - Help</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<style>
+  :root {
+    --bg: #F2F1EC; --surface: #FFFFFF; --ink: #1F2A24; --ink-soft: #4B5048; --muted: #6F6B5C;
+    --border: #DAD5C8; --office: #3B6E71; --office-bg: #E7EFEE; --warn-bg: #FFF2D6;
+    --done: #2F5A2F; --done-bg: #E6EDE3; --radius: 8px;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font); background: var(--bg); color: var(--ink); line-height: 1.55; font-size: 15px; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 24px 16px 80px; }
+  header { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; flex-wrap: wrap; }
+  .brand-logo { height: 34px; width: auto; max-width: 220px; object-fit: contain; display: block; }
+  .brand-line { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px; }
+  .brand-sds { width: 36px; height: 36px; display: block; border-radius: 6px; }
+  h1 { font-size: 22px; margin: 0; }
+  h2 { font-size: 17px; margin: 32px 0 10px; padding-top: 14px; border-top: 1px solid var(--border); }
+  h2:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+  p { margin: 6px 0 10px; }
+  ul, ol { margin: 4px 0 12px; padding-left: 22px; }
+  li { margin-bottom: 5px; }
+  a { color: var(--office); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; }
+  .pill { display: inline-block; font-size: 11px; padding: 1px 8px; border-radius: 20px; font-weight: 600; }
+  .pill.admin { background: var(--office-bg); color: #1F4F52; }
+  .pill.user { background: var(--done-bg); color: var(--done); }
+  .note { background: var(--office-bg); border-left: 3px solid var(--office); padding: 10px 14px; border-radius: 4px; font-size: 14px; margin: 10px 0; }
+  .warn { background: var(--warn-bg); border-left: 3px solid #D9A400; padding: 10px 14px; border-radius: 4px; font-size: 14px; margin: 10px 0; }
+  table.perm { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 8px; }
+  table.perm th { text-align: left; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  table.perm td { padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  nav.toc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 20px; margin: 18px 0 20px; font-size: 14px; }
+  nav.toc ul { columns: 2; padding-left: 18px; margin: 6px 0 0; }
+  @media (max-width: 560px) { nav.toc ul { columns: 1; } }
+  :focus-visible { outline: 3px solid var(--office); outline-offset: 2px; }
+  .disclaimer { background: #FFF9E8; border: 1px solid #E8D4A0; border-left: 4px solid #D9A400; border-radius: 6px; padding: 10px 14px; font-size: 14px; }
+  .disclaimer ul { margin: 2px 0 0; padding-left: 18px; }
+  .back { font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div id="helpBrand"></div>
+  <div>
+    <h1>Help</h1>
+    <p style="margin:0; color:var(--muted); font-size:13.5px;">Everything you need to use SDS EZY.</p>
+  </div>
+</header>
+<p class="back"><a href="index.html">&larr; Back to SDS EZY</a></p>
+
+<nav class="toc" aria-label="Contents">
+  <strong>Jump to</strong>
+  <ul>
+    <li><a href="#what">What SDS EZY does</a></li>
+    <li><a href="#important">Important: please read</a></li>
+    <li><a href="#login">Logging in</a></li>
+    <li><a href="#roles">Who can do what</a></li>
+    <li><a href="#places">Places and vehicles</a></li>
+    <li><a href="#onsite">Finding the SDS and assessment on site</a></li>
+    <li><a href="#packs">Job packs</a></li>
+    <li><a href="#audits">Audits</a></li>
+    <li><a href="#offline">Saving a place for offline</a></li>
+    <li><a href="#review">The review list</a></li>
+    <li><a href="#upload">Uploading an SDS</a></li>
+    <li><a href="#register">The register</a></li>
+    <li><a href="#hazardous">The hazardous register</a></li>
+    <li><a href="#classification">Classification and pictograms</a></li>
+    <li><a href="#chemical">A chemical's page</a></li>
+    <li><a href="#assessment">The risk assessment</a></li>
+    <li><a href="#editing">Editing (admins)</a></li>
+    <li><a href="#labels">QR labels</a></li>
+    <li><a href="#manifest">The manifest</a></li>
+    <li><a href="#takeaway">Take-away copies</a></li>
+    <li><a href="#import">Importing a spreadsheet</a></li>
+    <li><a href="#settings">Settings and AI</a></li>
+    <li><a href="#phone">Using it on your phone</a></li>
+  </ul>
+</nav>
+
+<div class="card">
+
+<h2 id="what">What SDS EZY does</h2>
+<p>SDS EZY is a register of the chemicals at your workplace. For each chemical it keeps the safety data sheet (SDS), the hazard details, where it is stored, and a one-page hazard risk assessment.</p>
+<p>When you upload an SDS, the app reads it, adds the chemical to the register and drafts the risk assessment for you. A person then checks the draft. It also tells you when an SDS is more than 5 years old and needs replacing.</p>
+
+<h2 id="important">Important: please read</h2>
+<div class="disclaimer" id="disclaimerBox">Loading...</div>
+
+<h2 id="login">Logging in</h2>
+<p>Go to the app's web address and log in with the email and password you were given. There is no self-signup. An admin adds each person under <strong>Users</strong>.</p>
+<p>If your business has switched on emailed codes, you also get a 6-digit code by email after your password. Type it in to finish. The code works for 10 minutes. You stay logged in for 30 days, so you only see the code about once a month on each device.</p>
+<div class="note">If the code email does not arrive, check your junk folder, then ask your admin to check the email setup.</div>
+
+<h2 id="roles">Who can do what</h2>
+<table class="perm">
+  <thead><tr><th>Action</th><th><span class="pill user">User</span></th><th><span class="pill admin">Admin</span></th></tr></thead>
+  <tbody>
+    <tr><td>Look at the register, chemicals, assessments and SDS files</td><td>Yes</td><td>Yes</td></tr>
+    <tr><td>Print, download and make take-away copies</td><td>Yes</td><td>Yes</td></tr>
+    <tr><td>Upload an SDS</td><td>Yes (a limited number each hour)</td><td>Yes</td></tr>
+    <tr><td>Change or delete a chemical, an SDS or an assessment</td><td>No</td><td>Yes</td></tr>
+    <tr><td>Change storage locations</td><td>No</td><td>Yes</td></tr>
+    <tr><td>Import a spreadsheet, change the option lists</td><td>No</td><td>Yes</td></tr>
+    <tr><td>Settings, AI, logo, colours and users</td><td>No</td><td>Yes</td></tr>
+  </tbody>
+</table>
+<p>A user cannot change anything, even something they uploaded themselves. Ask an admin.</p>
+
+<h2 id="places">Places and vehicles</h2>
+<p>A <strong>place</strong> is where chemicals are kept: a <em>workshop or depot</em>, a <em>vehicle</em> or a <em>site</em>. Vehicles can have a registration. Each chemical can be linked to one or more places, with an optional quantity (litres or kilograms), a note about the containers and an optional spill compound. Chemicals are not tracked moving between places.</p>
+<ul>
+  <li>On a phone, the bar at the bottom has <strong>My place</strong>, <strong>Find</strong>, <strong>Job pack</strong> and <strong>More</strong>. The top of the screen shows the company and your current place. Tap it to change place.</li>
+  <li><strong>Picking my place.</strong> Open <em>Places</em> and tap one. It is remembered on this phone for you only, so the next person to sign in on the same phone does not inherit it. After you sign in, the app opens your place.</li>
+  <li><strong>Admins</strong> can add, edit and archive places. An archived place drops off the lists and is not counted in totals, but keeps its links. <em>Show archived</em> brings it back into view.</li>
+  <li><strong>Counts toward totals.</strong> Placard and manifest quantities are added up for each place on its own, never across the whole business. A workshop or site counts by default. A vehicle does not.</li>
+  <li><strong>The vehicle note.</strong> A vehicle's page says: "Products in transit fall under the transport rules and are not counted here." That is our understanding. It has <strong>not</strong> been confirmed with Safe Work Australia or your WHS regulator, so check with them. An admin can switch counting on for a vehicle if they say otherwise.</li>
+</ul>
+
+<h2 id="onsite">Finding the SDS and assessment on site</h2>
+<p>Open your place. The chemicals kept there come first, each as a large card with its official pictograms, signal word, risk level and SDS review status. Each card has two big buttons: <strong>SDS</strong> opens the PDF in a new tab, and <strong>Assessment</strong> opens the chemical's risk assessment. If there is no SDS or no assessment on file, the button says so. Below the chemicals, the <strong>placard check</strong> shows how close the place is to the placard and manifest quantities, and it flags anything over. Scanning a place's <strong>QR label</strong> opens its chemical list.</p>
+
+<h2 id="packs">Job packs</h2>
+<p>Many clients ask for the SDS and risk assessments before work starts. <strong>Job pack</strong> builds them for you: choose a place (or tick chemicals), enter the client or site, a job reference and the date, and the app makes one print-ready PDF (cover page, register page, then each assessment and SDS) and a zip of the SDS files. Nothing is stored on the server. A chemical with no SDS or no assessment is named on the cover and is not left out.</p>
+
+<h2 id="audits">Audits</h2>
+<p>An audit is a walk round one place to check that the register matches what is really there, and to find anything that has been brought in without being recorded. You do it on a phone, standing at the place, with photos as proof.</p>
+<ol>
+  <li><strong>Start.</strong> Open the place and press <em>Audit this place</em> (or use the Audits screen). The app lists every chemical linked to the place. A place with no chemicals can still be audited, for example to record what you find.</li>
+  <li><strong>Mark each chemical.</strong> Tap <em>Present</em>, <em>Not found</em> or <em>Changed</em>. For <em>Changed</em>, give the new quantity (with litres or kilograms), the containers, or a note. Add a note or a photo to any chemical. Chemicals whose SDS is out of date, or that have no SDS or assessment, are shown first.</li>
+  <li><strong>Add a found item</strong> for anything that is there but not listed. Photograph the label. If AI is set up, it reads the product name and supplier. If not, or if it cannot read it, you type them in. The app then shows any matching chemicals on the register. A new product is added as "needs an SDS" and you go straight to uploading the SDS. A product that is already on the register is suggested for linking to the place.</li>
+  <li><strong>Flag for disposal</strong> anything expired, unlabelled, damaged, unknown or without an SDS. Add a photo if you can.</li>
+  <li><strong>Finish.</strong> You get a summary, and a report you can print or save as a PDF.</li>
+</ol>
+<ul>
+  <li><strong>Not found and Changed do not change the register by themselves.</strong> Someone may simply have missed an item. When the audit is finished they become <em>findings</em> (and a found item that matches the register becomes a finding for a user). An admin opens <em>Findings</em> and presses <em>Accept</em> (which removes the chemical from the place, changes its quantity, or links it) or <em>Dismiss</em> (which changes nothing).</li>
+  <li><strong>Found without checking the register.</strong> An item recorded while the phone had no signal could not be matched against the register, so it appears as a finding of that name. Press <em>I've looked at this</em> to mark it seen. Nothing on the register changes, so add or link the chemical from the register if it is needed.</li>
+  <li><strong>Disposals</strong> do not change the register either. An admin closes each one on the <em>Disposals</em> screen with a note, and can add a photo.</li>
+  <li><strong>Who can see what.</strong> An admin can see every audit and its photos. A user sees only the audits they ran. Anyone can see when a place was last audited.</li>
+  <li><strong>Reminders.</strong> The Review list shows places that have never been audited, or not for the number of days set in Settings (90 by default).</li>
+  <li><strong>Photos</strong> are shrunk on the phone before they are sent, and are only shown to people who may see that audit.</li>
+  <li><strong>Poor signal.</strong> Items that could not be sent are kept on the phone and sent later, when the signal returns. The audit screen shows what has not been sent yet.</li>
+</ul>
+
+<h2 id="offline">Saving a place for offline</h2>
+<p>On a place page, <strong>Save this place for offline</strong> keeps that place's chemicals, assessments and SDS PDFs on this phone. They then open with no signal. It shows when it was saved, how many chemicals and SDS files, and the size. <em>Update now</em> refreshes it, and <em>Remove from this phone</em> deletes it.</p>
+<ul>
+  <li><strong>Offline is read only.</strong> Anything that is not saved, and every change or upload, needs a signal. The app says "You're offline. This isn't saved on this phone."</li>
+  <li><strong>Signing out clears the saved data</strong> from the phone. A session that merely runs out does not.</li>
+  <li>After an app update you may see <em>Updated app: save this place again</em>.</li>
+  <li>To install the app on your home screen, use <em>More, Install app</em> (Android and desktop), or on an iPhone use Share, then Add to Home Screen.</li>
+</ul>
+
+<h2 id="review">The review list</h2>
+<p>This is the home screen. It shows what needs attention, with a count for each:</p>
+<ul>
+  <li><strong>Overdue</strong>: the SDS is more than 5 years old. Get a new one from the supplier.</li>
+  <li><strong>Due soon</strong>: the SDS will be 5 years old within 90 days.</li>
+  <li><strong>No SDS</strong>: no safety data sheet is attached yet.</li>
+  <li><strong>Not classified yet</strong>: the chemical has not been classified, so there is no hazardous or not hazardous decision.</li>
+</ul>
+<p>Tap a row to open the chemical. The review date is the issue date on the SDS plus 5 years.</p>
+
+<h2 id="upload">Uploading an SDS</h2>
+<p>Choose <strong>Upload SDS</strong>, pick the PDF, and answer a few short questions about how the chemical is used (where, how much, how long people are exposed, how well ventilated). The app reads the PDF, adds the chemical and drafts the assessment.</p>
+<ul>
+  <li>Only PDF files are accepted, up to the size limit set in Settings.</li>
+  <li>If the same file is already on record, the app tells you. If it looks like a newer version of an SDS you already have, you can add it as the new version. The old one is kept in the history.</li>
+  <li>If AI is not set up, or it fails, the SDS and the chemical are still saved. The assessment is left blank for an admin to fill in.</li>
+  <li>The AI reads the hazard classes and categories from section 2. They are checked against the H-codes in the PDF text. The decision, pictograms and signal word are worked out from the classification, never taken from the AI.</li>
+  <li>Anything else the AI reported that cannot be found in the PDF text is left blank and marked <em>Not found in the SDS text, check</em>.</li>
+</ul>
+
+<h2 id="register">The register</h2>
+<p>Every chemical, one per row. On a phone each chemical is a card. Use the search box to find a chemical by name, supplier, product code or CAS number. Use the buttons under it to filter (for example, only those overdue), and the sort menu to change the order.</p>
+<p><strong>Print</strong> makes a clean printed copy of what you can see. <strong>Download CSV</strong> saves it as a spreadsheet file.</p>
+
+<h2 id="hazardous">The hazardous register</h2>
+<p>Only the chemicals whose decision is hazardous, with their pictograms, signal word and ADG class (shown for illustration only). Print it for your records.</p>
+
+<h2 id="classification">Classification and pictograms</h2>
+<p>Every chemical is classified from section 2 of its SDS using the Safe Work Australia classification and labelling poster (the GHS, 7th revised edition). Each hazard class and category on the poster has a fixed pictogram, signal word and hazard statement, so SDS EZY works these out for you. You never tick pictograms by hand.</p>
+<ul>
+  <li><strong>The classification</strong> is the list of classes and categories the SDS shows, for example "Flammable liquids, Category 2". When you upload an SDS, the app reads it and the list is checked against the H-codes (such as H225) found in the SDS text. If they do not match, the chemical page shows <em>Check these details</em>.</li>
+  <li><strong>The decision</strong> follows from the list. A chemical with any classification is <em>hazardous</em>. A chemical that has been classified but carries none of the classifications is <em>not hazardous</em>. A chemical that has not been classified yet has <em>no decision</em>, and it shows up on the review list.</li>
+  <li><strong>Pictograms and signal word</strong> come from the same list. The nine official pictograms are shown. Some classes have no pictogram or no signal word on the poster, and the page says so.</li>
+  <li><strong>Category not confirmed</strong> means the class is known but the category is not. The page marks it so someone checks the SDS.</li>
+  <li><strong>Overrides (admins only).</strong> An admin can override the decision or the pictograms when the poster does not give the right answer, for example to add the environment pictogram, which the poster does not cover. An override is never hidden. Everyone sees <em>Overridden by an admin (derived: ...)</em> on the chemical page and a small <em>overridden</em> marker in the registers. <em>Reset to derived</em> removes it.</li>
+  <li><strong>ADG class</strong>, UN number, packing group and Hazchem code stay with the SDS details. The ADG class is shown for illustration only. Quantities for placards and the manifest use the GHS classification.</li>
+</ul>
+<p class="note">The classification table is reproduced from the Safe Work Australia poster as reference data. The regulations and the supplier's current SDS are the authority.</p>
+
+<h2 id="chemical">A chemical's page</h2>
+<p>Shows the product details, the hazard information from the SDS (with the standard red-diamond hazard pictograms), the SDS itself, the risk assessment and where it is stored.</p>
+<ul>
+  <li><strong>View the PDF</strong> opens the safety data sheet in a new tab.</li>
+  <li><strong>Also covers N other products</strong> lists other products that share the same SDS.</li>
+  <li><strong>Version history</strong> lists earlier versions of the SDS.</li>
+  <li><strong>Print assessment</strong> makes a clean one-page copy, with your business name at the top.</li>
+</ul>
+<p>If a chemical has been checked and is not hazardous, the page says so and does not ask for an assessment.</p>
+
+<h2 id="assessment">The risk assessment</h2>
+<p>The assessment is laid out like the one-page checklist: the product, the supplier and phone, the dates, the form and use, how the chemical can get in (inhalation, ingestion, absorption), fire and spill response, the controls (isolation, ventilation, other), PPE, the level of risk, whether air monitoring or health surveillance is needed, and who assessed it and when.</p>
+<p>The level of risk is one of: <strong>Not significant</strong>, <strong>Significant but effectively controlled</strong>, <strong>Significant and not effectively controlled</strong>, or <strong>Uncertain</strong>. It starts as Uncertain unless the SDS and the answers clearly show something else.</p>
+<div class="warn"><strong>A draft is only a draft.</strong> Assessments marked <em>Prepared from the SDS</em> were drafted by the app. Read them, compare them with the SDS and your own workplace, and fix anything that is wrong.</div>
+
+<h2 id="editing">Editing (admins)</h2>
+<p>Admins see an <strong>Edit</strong> button on each chemical. The edit screen has separate sections, each saved on its own:</p>
+<ul>
+  <li><strong>Product details</strong>: names, supplier, use and a note.</li>
+  <li><strong>Classification</strong>: add or remove hazard classes and categories, or say "not classified yet" or "carries none of the classifications". A preview shows the decision, pictograms and signal word that follow. The decision and pictogram overrides are here, each with a <em>Reset to derived</em> button.</li>
+  <li><strong>Safety data sheet</strong>: attach one, fix its details, or replace it with a newer version. Replacing keeps the old one in the history and moves every product that used it to the new one. Your assessment is not changed, so check it against the new SDS.</li>
+  <li><strong>Risk assessment</strong>: fill in or correct every part. <em>Save changes</em> updates the current assessment. <em>Save as a new version</em> keeps the old one in the history.</li>
+  <li><strong>Where it is kept</strong>: link the chemical to places with an optional quantity, containers note and spill compound. The spill compound groups chemicals that share a spill area in one place (used by the flammable liquid category 4 rule).</li>
+</ul>
+<p>The tick boxes for controls and PPE come from <strong>Options</strong>, where you can add, rename, reorder and switch off choices.</p>
+
+<h2 id="labels">QR labels</h2>
+<p>Each chemical has a <strong>QR label</strong> you can print and stick on the container or cabinet. Scanning it with a phone opens that chemical's page (after logging in).</p>
+
+<h2 id="manifest">The manifest</h2>
+<p>The manifest adds up the stock by GHS hazard class and category, place by place, and compares each total with the placard and manifest quantities in Schedule 11 of the WHS Regulations. Places that do not count (vehicles by default) are listed with the reason. Source of the reference data: Safe Work Australia.</p>
+
+<h2 id="takeaway">Take-away copies</h2>
+<p>The <strong>Take-away</strong> screen makes copies of the register that you can keep without logging in: spreadsheets, a PDF, and a zip with the SDS files. The disclaimer is included in each one. Make a new copy now and then, and keep it somewhere safe.</p>
+
+<h2 id="import">Importing a spreadsheet (admins)</h2>
+<p>If you already keep a chemical list in a spreadsheet, <strong>Import</strong> reads it, lets you match its columns to ours, and adds the chemicals and their storage locations. Chemicals that are already there (same name and supplier) are skipped. Then upload the SDS for each one.</p>
+
+<h2 id="settings">Settings and AI (admins)</h2>
+<ul>
+  <li><strong>Business details</strong>: name, address, phone, email and ABN. They appear on printed pages.</li>
+  <li><strong>Colours and logo</strong>: pick a preset or your own colours. The app checks that text stays readable. The logo shows next to your business name.</li>
+  <li><strong>Uploads</strong>: the biggest file allowed and how many uploads each person can make per hour.</li>
+  <li><strong>Sign-in security</strong>: the emailed login code, once your host has set up email.</li>
+  <li><strong>Reading SDSs with AI</strong>: choose a provider (Cloudflare Workers AI needs no key; Claude, OpenAI and Gemini need your own key) and optionally a model. The key is stored encrypted and is never shown again. Press <em>Test the saved settings</em> to check it works. If your host set the key as a server secret, that one is used.</li>
+</ul>
+
+<h2 id="phone">Using it on your phone</h2>
+<p>SDS EZY is made to work at the chemical cabinet. On a phone, the menu is behind the <strong>Menu</strong> button, the register is a list of cards, and everything is sized for fingers. Scan a QR label to jump straight to a chemical, then tap <strong>View the PDF</strong> to read the SDS.</p>
+
+</div>
+</div>
+<script src="disclaimer.js"></script>
+<script>
+(function () {
+  var esc = function (t) { return String(t).replace(/[&<>"']/g, function (m) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]; }); };
+  var d = window.DISCLAIMER;
+  var box = document.getElementById('disclaimerBox');
+  if (d) box.innerHTML = '<strong>' + esc(d.title || 'Important') + '</strong><ul>' + d.points.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ul>';
+  fetch('/api/public-settings').then(function (r) { return r.json(); }).then(function (s) {
+    var name = s.company_name || 'SDS EZY';
+    document.getElementById('helpBrand').innerHTML = s.has_logo
+      ? '<span class="brand-line"><img class="brand-logo" src="/api/logo?v=' + encodeURIComponent(s.logo_version || '') + '" alt=""><span>' + esc(name) + '</span></span>'
+      : '<span class="brand-line"><img class="brand-sds" src="/icons/logo-128.png" width="36" height="36" alt="SDS EZY logo"><span>' + esc(name) + '</span></span>';
+    if (/^#[0-9a-f]{6}$/i.test(s.accent_color || '')) document.documentElement.style.setProperty('--office', s.accent_color);
+  }).catch(function () {});
+})();
+</script>
+</body>
+</html>

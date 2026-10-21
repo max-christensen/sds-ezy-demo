@@ -1,0 +1,6 @@
+/sw.js
+  Cache-Control: no-cache
+/app-version.js
+  Cache-Control: no-cache
+/manifest.webmanifest
+  Cache-Control: no-cache

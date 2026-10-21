@@ -1,0 +1,22 @@
+# Local development (`npm run dev`) works with no secrets at all. To try the optional ones, copy this file
+# to .dev.vars (git-ignored) and uncomment what you want. For a deployed Worker, set them with
+# `wrangler secret put <NAME>` or in the Cloudflare dashboard instead.
+
+# Optional. Without it, the first admin can be created by whoever opens the app first. With it, setup needs this key.
+# SETUP_KEY=choose-a-one-time-password
+
+# Optional. Without it, SDS EZY generates a random signing key and keeps it in the database.
+# SESSION_SECRET=a-long-random-string
+
+# Optional. Setting this turns on emailed two-factor login codes (see README).
+# RESEND_API_KEY=re_xxxxxxxxxxxx
+
+# Optional. Your own AI key (otherwise Cloudflare Workers AI is used, or an admin can paste a key into Settings).
+# ANTHROPIC_API_KEY=sk-ant-xxxxxxxx
+# OPENAI_API_KEY=sk-xxxxxxxx
+# GEMINI_API_KEY=xxxxxxxx
+
+# Optional. Turns the app into a read-only demo (see the README). Use a SEPARATE database for a demo.
+# DEMO_MODE=1
+# DEMO_ADMIN_EMAIL=demo-admin@example.invalid
+# DEMO_USER_EMAIL=demo-user@example.invalid

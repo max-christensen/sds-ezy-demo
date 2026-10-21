@@ -1,0 +1,28 @@
+SAFETY DATA SHEET
+Product name: Wallbright Interior Matt White 10L
+Wallbright Paints Pty Ltd (fictional example)
+Revision date: March 2022
+
+SECTION 1: Identification
+Recommended use: Interior water-based wall paint.
+Emergency telephone number: 1800 555 0177
+
+SECTION 2: Hazards identification
+Not classified as a hazardous substance or mixture according to the Globally Harmonised System (GHS).
+Not classified as hazardous according to the model WHS Regulations. No signal word. No hazard statements.
+
+SECTION 3: Composition
+Water 7732-18-5 40-60 %
+Titanium dioxide 13463-67-7 10-20 %
+
+SECTION 7: Handling and storage
+Store between 5 and 30 C. Keep containers closed.
+
+SECTION 8: Exposure controls
+General ventilation is adequate. Gloves recommended for prolonged contact.
+
+SECTION 9: Physical and chemical properties
+Appearance: white liquid.
+
+SECTION 14: Transport information
+Not classified as dangerous goods. Not regulated for transport.

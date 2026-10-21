@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1F2A24">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="SDS EZY">
+<title>SDS EZY</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="app.css">
+<style id="pageStyle"></style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to the main content</a>
+
+<div id="loginScreen">
+  <div class="login-card">
+    <div id="loginBrand"></div>
+    <h1 id="loginTitle">Log in</h1>
+    <p class="sub" id="loginSub">Enter your email and password.</p>
+    <form id="loginForm">
+      <label for="loginEmail">Email</label>
+      <input type="email" id="loginEmail" autocomplete="username" required>
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" autocomplete="current-password" required minlength="8">
+      <div id="setupExtraFields" style="display:none">
+        <label for="setupName">Your name</label>
+        <input type="text" id="setupName" autocomplete="name">
+        <div id="setupKeyRow">
+          <label for="setupKey">Setup key</label>
+          <input type="text" id="setupKey" autocomplete="off">
+        </div>
+      </div>
+      <button type="submit" class="primary" style="width:100%; margin-top:18px;" id="loginSubmit">Log in</button>
+      <div class="error-text" id="loginError" role="alert"></div>
+    </form>
+    <div class="demo-row" id="demoRow" style="display:none">
+      <p>This is a read-only demo. Look around as much as you like; nothing can be changed.</p>
+      <div id="demoBtns"></div>
+    </div>
+    <form id="codeForm" style="display:none">
+      <h1>Check your email</h1>
+      <p class="sub" id="codeSub">We have emailed you a 6-digit code.</p>
+      <label for="loginCode">6-digit code</label>
+      <input type="text" id="loginCode" inputmode="numeric" autocomplete="one-time-code" maxlength="7" required style="font-size:20px; letter-spacing:4px; text-align:center;">
+      <button type="submit" class="primary" style="width:100%; margin-top:18px;">Confirm</button>
+      <div class="error-text" id="codeError" role="alert"></div>
+      <div class="switch-link"><a href="#" id="codeBack">Back to log in</a></div>
+    </form>
+    <div class="powered-by"><img src="/icons/logo-128.png" width="16" height="16" alt="">Powered by SDS EZY</div>
+    <div class="switch-link" id="setupLinkRow" style="display:none">
+      <a href="#" id="toggleSetup">First time setting this up? Create the admin account</a>
+    </div>
+  </div>
+</div>
+
+<div id="app">
+  <header class="app-header" id="appHeader"></header>
+  <div class="offline-banner" id="offlineBanner" role="status" hidden>Offline: showing what is saved on this phone</div>
+  <div class="demo-banner" id="demoBanner" style="display:none">Demo mode: you can look around, but nothing can be changed or uploaded.</div>
+  <div class="app-body">
+    <nav class="sidebar" id="sidebar" aria-label="Main"></nav>
+    <main id="main" tabindex="-1"></main>
+  </div>
+</div>
+
+<nav class="tabbar" id="tabbar" aria-label="Main tabs"></nav>
+<div id="printArea" aria-hidden="true"></div>
+<div id="toasts" aria-live="polite" role="status"></div>
+
+<script src="disclaimer.js"></script>
+<script src="/app-version.js"></script>
+<script src="/lib/audit-client.js"></script>
+<script src="/lib/audit-store.js"></script>
+<script src="/lib/audit-outbox.js"></script>
+<script src="/lib/offline.js"></script>
+<script src="app.js"></script>
+<script>
+// Load the screens in order. A file that is missing (or fails) is skipped and never stops the app.
+(function () {
+  var files = [
+    'lib/photo.js', 'views/pictograms.js', 'views/review.js', 'views/register.js', 'views/chemical.js', 'views/settings.js',
+    'views/users.js', 'views/options.js', 'views/welcome.js', 'views/places.js', 'views/place.js',
+    'views/pack.js', 'views/upload.js', 'views/manifest.js', 'views/takeaway.js', 'views/import.js', 'views/label.js',
+    'views/audits.js', 'views/findings.js', 'views/disposals.js', 'views/audit.js', 'views/audit-new.js', 'views/audit-found.js', 'views/audit-summary.js', 'views/audit-report.js'
+  ];
+  function load(src) {
+    return new Promise(function (resolve) {
+      var s = document.createElement('script');
+      s.src = src;
+      s.async = false; // download together, run in order
+      s.onload = function () { resolve(true); };
+      s.onerror = function () { console.warn('Screen file not loaded: ' + src); resolve(false); };
+      document.head.appendChild(s);
+    });
+  }
+  Promise.all(files.map(load))
+    .then(function () { return window.App.start(); })
+    .catch(function (e) { console.error(e); });
+})();
+</script>
+</body>
+</html>
