@@ -55,9 +55,9 @@ test("the bindings the code needs are all in wrangler.toml, and it uses no old o
   assert.ok(!used.has("ATTACHMENTS"), "the old ATTACHMENTS binding is still referenced");
 });
 
-test("package.json: the deploy script is a plain wrangler deploy (no build-time database step); the Worker sets up its own tables", () => {
+test("package.json: the deploy script is wrangler deploy with a retry (no build-time database step); the Worker sets up its own tables", () => {
   const p = JSON.parse(read("package.json"));
-  assert.equal(p.scripts.deploy, "wrangler deploy", "a build-time D1 step fails on a fresh button deploy (error 7404)");
+  assert.equal(p.scripts.deploy, "node scripts/deploy.mjs", "wrangler deploy with a retry for the D1-not-found upload error; no build-time D1 step (error 7404)");
   assert.ok(!/db:init|d1 execute/.test(p.scripts.deploy + p.scripts.predeploy), "deploy and predeploy must not touch the remote database");
   assert.equal(p.scripts["db:init"], "wrangler d1 execute DB --remote --yes --file=./schema.sql");
   assert.ok(!/sds-ezy-db/.test(p.scripts["db:init"]), "reference the DB binding, not the database name (the button renames resources)");

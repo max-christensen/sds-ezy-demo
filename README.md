@@ -10,6 +10,30 @@ It is built for people who work out on other people's sites as well as in a work
 
 It does one job: **the chemical register and the risk assessment for each chemical.** Work instructions, SOPs, JSEAs and SWMS are out of scope; they belong in a different product.
 
+## Live demo
+
+**Try it: https://sds-ezy-demo.max-christensen.workers.dev**
+
+It is a read-only demo for a made-up business, Tallowood Joinery & Maintenance Pty Ltd, with 67 chemicals and generated, clearly fictional safety data sheets. Nothing in it is real and nothing can be changed. On the login screen use the one-click buttons, or type a login:
+
+| Role | Email | Password |
+|---|---|---|
+| Administrator | `demo-admin@example.invalid` | `demo-Ezy-2026` |
+| User | `demo-user@example.invalid` | `demo-Ezy-2026` |
+
+The password is public on purpose and exists only for the demo. Screenshots below are from the live demo.
+
+| Desktop | Phone |
+|---|---|
+| ![Login](docs/screenshots/live-desktop-login.png) | ![Login on a phone](docs/screenshots/live-phone-login.png) |
+| ![The register](docs/screenshots/live-desktop-register.png) | ![The register on a phone](docs/screenshots/live-phone-register.png) |
+| ![A chemical page](docs/screenshots/live-desktop-chemical.png) | ![A chemical page on a phone](docs/screenshots/live-phone-chemical.png) |
+| ![The hazardous register](docs/screenshots/live-desktop-hazardous.png) | ![The hazardous register on a phone](docs/screenshots/live-phone-hazardous.png) |
+| ![A place and its totals](docs/screenshots/live-desktop-place.png) | ![A place on a phone](docs/screenshots/live-phone-place.png) |
+| ![The manifest](docs/screenshots/live-desktop-manifest.png) | ![The manifest on a phone](docs/screenshots/live-phone-manifest.png) |
+| ![An audit report](docs/screenshots/live-desktop-audit-report.png) | ![An audit report on a phone](docs/screenshots/live-phone-audit-report.png) |
+| ![Review home](docs/screenshots/live-desktop-review.png) | ![Review home on a phone](docs/screenshots/live-phone-review.png) |
+
 ## Important: read this first
 
 > The safety data sheet (SDS) information and risk assessments in this register are prepared from the supplier's safety data sheet. They are a guide and a starting point.
@@ -37,6 +61,7 @@ The app shows this on the register, the chemical and assessment pages, every pri
 - **Non-hazardous chemicals** that have been checked stay on the list with that decision recorded, and don't need a full assessment.
 - **Places.** A place is a workshop or depot, a vehicle (with a registration number) or a site. A chemical is kept at one or more places, with an optional quantity. The admin creates, edits and archives places; archived places drop off the active lists but stay on record. Chemicals are not tracked moving between places. Each place has a "counts toward the placard and manifest totals" setting: on for workshops, depots and sites, **off for vehicles** (see the open point below).
 - **Pick your place and go.** After signing in, a user picks where they are working (for example "Ute 2"). The app remembers it on that phone and shows that place's chemicals first, with the SDS and the assessment one tap away. Each place has a printable QR label that opens its chemical list after sign-in.
+- **Add a chemical from a label photo.** An admin can add a chemical on **Register, Add a chemical** by typing it, or by photographing the product label: the AI (Workers AI by default, so nothing to set up) reads the name, supplier, product code and any signal word or hazard text into the form for them to check and edit. It never saves by itself, and the photo is only kept (in R2, with the chemical) if the chemical is saved. If no AI is set up or the read fails, the form is simply filled in by hand. A **Find SDS** button opens a web search (or, for a few suppliers with a known SDS search page, that page) in a new tab; the app itself looks nothing up. The PDF you download is then uploaded in the normal way and the assessment is drafted as usual. Off in the read-only demo.
 - **Job packs.** Anyone signed in can pick a place (or tick chemicals directly), enter the client or site name, a job reference and the date, and get one print-ready PDF built in the browser: a cover page (company details, client or site, date, the list of chemicals and anything that is missing), a register page, then each chemical's assessment followed by its SDS, with the disclaimer on the pages. They can also get a zip of the SDS PDFs. A chemical with no SDS or no assessment is listed on the cover and gets a placeholder page, never left out. Nothing is saved on the server, so it needs no write permission. Many PCBUs ask for these before work starts.
 - **On the phone, with or without a signal.** The app can be installed to the home screen. "Save this place for offline" stores that place's chemical pages, assessments and SDS PDFs on the phone and shows when it was last updated, so they open with no signal. Offline is read-only; an upload needs a signal and says so. Signing out clears the saved data. See [docs/OFFLINE.md](docs/OFFLINE.md).
 - **Chemical audits.** On a phone or tablet at the place itself, anyone signed in can audit a place: mark each chemical **Present**, **Not found** or **Changed** (a different quantity or container) with a note and a photo, with each chemical's SDS review status and whether it has an assessment shown so out-of-date ones stand out. They can photograph a label to add a **found item** that is not on the register, flag items **for disposal**, and finish to get a summary. Not found and Changed do not change the register by themselves: they become findings an admin accepts or dismisses. Each audit can be printed or saved as a PDF, and the review home lists places not audited for a set number of days. See [Chemical audits](#chemical-audits).
@@ -66,7 +91,7 @@ Because a user can write (by uploading), the upload has guards: PDF only (checke
 An audit is run against one place (a workshop, a vehicle or a site), usually on a phone, with photos as proof. The app records who ran it, which place, and when it started and finished.
 
 - **Marking chemicals.** The audit lists the chemicals linked to the place. For each one the person taps Present, Not found or Changed, with an optional note and photo. "Changed" records what is different (a new quantity, a different container). Each card shows the chemical's SDS review status and whether it has an assessment, and out-of-date ones come first. Finishing gives a summary of the counts.
-- **Found items.** "Add a found item" photographs a label. If an AI is set up, it reads the product name and supplier from the photo, using a model that can read images (set under **Settings → AI → Photo reading**, with a **Test photo reading** button; the text model you use for safety data sheets may not read images, so it has its own setting). If not, the person types them. The app checks the register for a match. A match can be linked to the place. A product that is not on the register is created as **"needs an SDS"**, and the person goes straight into the normal SDS upload, which attaches the sheet to it. **The app never tries to find an SDS on the internet.** The found item and its photo stay in the audit as proof.
+- **Found items.** "Add a found item" photographs a label. If an AI is set up, it reads the product name and supplier from the photo, using a model that can read images (set under **Settings → AI → Photo reading**, with a **Test photo reading** button; the text model you use for safety data sheets may not read images, so it has its own setting). If not, the person types them. The app checks the register for a match. A match can be linked to the place. A product that is not on the register is created as **"needs an SDS"**, and the person goes straight into the normal SDS upload, which attaches the sheet to it. **The app never tries to find an SDS on the internet** (the add-chemical screen's Find SDS button only opens a search in a new tab; nothing is fetched). The found item and its photo stay in the audit as proof.
 - **Items to dispose of.** Any item can be photographed and flagged with a reason: expired, unlabelled, damaged, unknown or no SDS. Each starts as "to dispose"; an admin closes it with a note (and optionally a photo), recorded with who and when.
 - **Findings.** When an audit is finished, each Not found and Changed result becomes a **finding** on a list for the admin, who accepts it with one click (unlink the chemical from the place, or update its quantity and container) or dismisses it. This is deliberate: someone may simply have missed it.
 - **Photos.** Each photo is compressed on the phone before it is sent (longest side about 1600 px, JPEG quality about 0.7), stored in R2 with the time it was taken and linked to the audit item. The admin sets limits in Settings: the size of one photo (default 2 MB), the number of photos per audit (default 50) and the total per audit (default 40 MB). A photo is only ever shown to someone who can see the audit.
@@ -110,7 +135,7 @@ Two things in the app are **our understanding, not something the Safe Work Austr
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/max-christensen/SDS-EZY)
 
-**Using the button:** it makes your own copy of this repository in your GitHub (or GitLab) account, creates the Worker, the D1 database and the R2 bucket in your Cloudflare account from [wrangler.toml](wrangler.toml), and runs the deploy script. The Worker creates its own database tables the first time it runs (from [schema.sql](schema.sql), which is safe to repeat), so there is nothing to run afterwards.
+**Using the button:** it makes your own copy of this repository in your GitHub (or GitLab) account, creates the Worker, the D1 database and the R2 bucket in your Cloudflare account from [wrangler.toml](wrangler.toml), and runs the deploy script. **If the build fails with "D1 binding 'DB' references database ... which was not found"**, create a D1 database yourself in the Cloudflare dashboard (Storage & databases, D1), start the button again and on the setup page choose "Use existing" for the D1 database and pick it ([docs/DEPLOY.md](docs/DEPLOY.md) explains why). The Worker creates its own database tables the first time it runs (from [schema.sql](schema.sql), which is safe to repeat), so there is nothing to run afterwards.
 
 The button needs nothing typed in. **Open your Worker's address straight after it deploys and create the admin account** (see [First run](#first-run)). Until an admin exists, the first person to open the setup screen becomes the admin, so don't leave it. For extra protection, see [Optional secrets](#optional-secrets). Reading safety data sheets works straight away with Cloudflare Workers AI; see [Choosing the AI](#choosing-the-ai) to use your own key instead.
 
@@ -198,7 +223,7 @@ Admins can switch the code step off and on in **Settings**. **If the code email 
 
 ## Read-only demo (optional)
 
-The same code can run as a public, read-only demo. Set the plain variable `DEMO_MODE` to `1`, and `DEMO_ADMIN_EMAIL` and `DEMO_USER_EMAIL` to two accounts; the login screen then offers one-click demo logins, and **every change is refused for everyone**, including the demo admin and the demo user (uploads too). A seeded demo for a made-up business (about 65 chemicals with generated, clearly fictional SDS PDFs, a few overdue for review, assessments at every risk level) is built by `npm run demo:build`. [docs/DEMO.md](docs/DEMO.md) explains how to load it into a **separate** demo database and bucket. Never point a demo at your real data.
+The same code can run as a public, read-only demo. Set `DEMO_MODE` to `1`, and `DEMO_ADMIN_EMAIL` and `DEMO_USER_EMAIL` to two accounts (as secrets, so a redeploy from the button's build does not remove them); the login screen then offers one-click demo logins, and **every change is refused for everyone**, including the demo admin and the demo user (uploads too). A seeded demo for a made-up business (67 chemicals with generated, clearly fictional SDS PDFs, a few overdue for review, assessments at every risk level) is built by `npm run demo:build`. [docs/DEMO.md](docs/DEMO.md) explains how to load it into a **separate** demo database and bucket, and how the live demo above was set up. Never point a demo at your real data.
 
 ## Running it locally
 

@@ -526,6 +526,7 @@
       if (segs[2] === 'label') return { view: 'label', key: 'place', params: { id, place: true, kind: 'place', placeId: id, query } };
       return { view: 'place', key: 'place', params: { id, edit: segs[2] === 'edit', query } };
     }
+    if (segs[0] === 'chemical' && segs[1] === 'new') return { view: 'chemicalnew', key: 'register', params: { query } };
     if (segs[0] === 'chemical' && segs[1]) {
       const id = segs[1];
       if (segs[2] === 'label') return { view: 'label', key: 'register', params: { id, query } };

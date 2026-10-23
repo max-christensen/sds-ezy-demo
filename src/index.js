@@ -17,7 +17,8 @@ import * as Audits from "./audits.js";
 import { handleImport } from "./import.js";
 import { handlePrecheck, handleUpload } from "./upload.js";
 import { handleGetAiSettings, handlePutAiSettings, handleTestAi } from "./ai.js";
-import { handleTestVision } from "./label.js";
+import { handleTestVision, handleReadChemicalLabel } from "./label.js";
+import { handleUploadLabelPhoto, handleGetLabelPhoto } from "./label-photo.js";
 import { ensureSchema } from "./schema.js";
 
 const ID = "(\\d+)";
@@ -56,6 +57,9 @@ const ROUTES = [
   ["GET", "/api/review", "user", Reg.handleReview],
   ["GET", "/api/chemicals", "user", Reg.handleListChemicals],
   ["POST", "/api/chemicals", "admin", Reg.handleCreateChemical],
+  ["POST", "/api/chemicals/read-label", "admin", (c) => handleReadChemicalLabel(c.request, c.env, c.user)],
+  ["POST", `/api/chemicals/${ID}/label-photo`, "admin", handleUploadLabelPhoto],
+  ["GET", `/api/chemicals/${ID}/label-photo`, "user", handleGetLabelPhoto],
   ["GET", `/api/chemicals/${ID}`, "user", Reg.handleGetChemical],
   ["PUT", `/api/chemicals/${ID}`, "admin", Reg.handleUpdateChemical],
   ["DELETE", `/api/chemicals/${ID}`, "admin", Reg.handleDeleteChemical],

@@ -130,45 +130,48 @@ Suggested npm scripts for `package.json`:
 "answer-key:selftest": "node scripts/answer-key.mjs --self-test"
 ```
 
-## Putting the demo on its own Worker (documented only; nothing here has been run)
+## The live demo (https://sds-ezy-demo.max-christensen.workers.dev)
 
-The demo must be a **separate Worker with its own D1 database and R2 bucket**, never your real one. Do these steps yourself,
-deliberately, when you are ready:
+The live demo is a **separate Worker, `sds-ezy-demo`, with its own D1 database (`sds-ezy-db`) and R2 bucket (`sds-ezy-files`)**, created by the Deploy to Cloudflare button. It never shares a database or bucket with a real register. It was set up like this (the IDs belong in a git-ignored config outside the repository, never in a commit):
 
-1. Make a second config, for example `wrangler.demo.toml` (not committed), copied from the placeholder `wrangler.toml`, with a different
-   `name = "sds-ezy-demo"`, its own `d1_databases` entry (`database_name = "sds-ezy-demo-db"`), its own `r2_buckets` entry
-   (`bucket_name = "sds-ezy-demo-files"`), and these vars:
-
-   ```toml
-   [vars]
-   DEMO_MODE = "1"
-   DEMO_ADMIN_EMAIL = "demo-admin@example.invalid"
-   DEMO_USER_EMAIL = "demo-user@example.invalid"
-   ```
-
-   Set a fresh `SESSION_SECRET` for it (`wrangler secret put SESSION_SECRET -c wrangler.demo.toml`). Do not give the demo Worker any AI key,
-   `RESEND_API_KEY` or `SETUP_KEY` from your real deployment.
-2. Create the resources: `wrangler d1 create sds-ezy-demo-db` and `wrangler r2 bucket create sds-ezy-demo-files`, and paste the new
-   database id into `wrangler.demo.toml`.
-3. Build the data fresh for the day you deploy: `node scripts/make-demo.mjs`.
-4. Load the schema and data into the demo database (this is a remote command, run by you, against the demo database only):
-
-   ```bash
-   wrangler d1 execute DB --remote -c wrangler.demo.toml --file=./schema.sql
-   wrangler d1 execute DB --remote -c wrangler.demo.toml --file=./demo-out/demo.sql
-   ```
-
-5. Upload the PDFs (and, afterwards, the audit photos: same loop over `demo-out/photos/audits/*/*.jpg` with key `audits/<id>/<file>` and `--content-type image/jpeg`) to the demo bucket, one per `sds.r2_key` (keys look like `sds/7-692d1df48391.pdf`):
+1. The button deployed the Worker. On its first request the Worker created its own tables ([DEPLOY.md](DEPLOY.md)).
+2. Build the data for the day: `node scripts/make-demo.mjs --today YYYY-MM-DD`.
+3. Make a config that names only the demo Worker, its database ID and its bucket (not committed), and pass it with `-c` to every remote command. Check `wrangler whoami` and the database ID first.
+4. Load the data: `wrangler d1 execute DB --remote --yes --file=./demo-out/demo.sql -c <that config>`. `demo.sql` clears and reloads the register tables and leaves `settings` alone, so the Worker keeps its signing key.
+5. Upload the PDFs and photos (key = path under `demo-out/pdfs` or `demo-out/photos`; PDFs go to `sds/<file>.pdf`, photos to `audits/<id>/<file>.jpg`):
 
    ```bash
    for f in demo-out/pdfs/sds/*.pdf; do
-     wrangler r2 object put "sds-ezy-demo-files/sds/$(basename "$f")" --file "$f" --content-type application/pdf --remote -c wrangler.demo.toml
+     wrangler r2 object put "sds-ezy-files/sds/$(basename "$f")" --file "$f" --content-type application/pdf --remote -c <config>
+   done
+   for f in demo-out/photos/audits/*/*.jpg; do
+     wrangler r2 object put "sds-ezy-files/${f#demo-out/photos/}" --file "$f" --content-type image/jpeg --remote -c <config>
    done
    ```
+6. Switch on demo mode with **secrets**, not dashboard or config variables, because the button's builds run `wrangler deploy` on every change and that removes variables that are not in the committed config (secrets survive):
 
-6. Deploy: `wrangler deploy -c wrangler.demo.toml`. The login screen then lists the two demo logins and every write returns the read-only message.
+   ```bash
+   echo -n 1 | wrangler secret put DEMO_MODE -c <config>
+   echo -n demo-admin@example.invalid | wrangler secret put DEMO_ADMIN_EMAIL -c <config>
+   echo -n demo-user@example.invalid | wrangler secret put DEMO_USER_EMAIL -c <config>
+   ```
 
-To refresh the dates later, rebuild with a new `--today` and re-run step 4 (the SQL clears and reloads the register tables) and step 5.
+   No AI key, `RESEND_API_KEY` or `SETUP_KEY` is set on the demo.
+
+To refresh the dates later, rebuild with a new `--today` and repeat steps 4 and 5. In demo mode the app itself cannot change anything, so refreshing is done with these commands.
+
+### Rows read on the live database (measured 22 Oct 2026, D1 `meta.rows_read` per request, via a temporary `DEBUG_ROWS` secret that was removed straight afterwards)
+
+| Request | Rows read |
+|---|---|
+| Sign in (admin / user) | 1 to 2 |
+| Who am I (`/api/me`) | 1 |
+| Register (all 67 chemicals) | 68 |
+| A chemical page (ids 1, 5, 30, 66) | 44, 45, 53, 8 |
+| Place page (workshop, 62 chemicals) | 130 |
+| Review home | 35 |
+
+The free plan allows 5 million rows read per day, so a demo visit costs a tiny part of it.
 
 ## Answer-key harness (real files, kept out of git)
 

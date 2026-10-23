@@ -77,6 +77,12 @@ An H-code that matches a single poster row adds that row's first category (H319 
 
 Image request shapes (checked against the current docs): Claude `content: [{type:"image", source:{type:"base64", media_type, data}}, {type:"text"}]`; OpenAI chat completions `content: [{type:"text"}, {type:"image_url", image_url:{url:"data:image/jpeg;base64,..."}}]`; Gemini `parts: [{inlineData:{mimeType, data}}, {text}]`; Workers AI `messages[].content: [{type:"text"}, {type:"image_url", image_url:{url: dataUri}}]` (the Llama 3.2 11B vision model takes a separate `image` field).
 
+### Add from label photo (src/label.js, public/views/chemical-new.js)
+
+`POST /api/chemicals/read-label` (admin, multipart `image`, same JPEG and 3 MB checks and the same hourly limit as the audit reader) asks the photo model for strict JSON `{product_name, supplier, product_code, signal_word, hazard_text}`. `parseChemicalLabelAnswer` validates it: wrong types make the whole answer unusable, every text is stripped of control characters, tidied, capped (200, 200, 80, 400) and dropped if it looks like instructions (`stripInjection`), the signal word is only ever `Danger` or `Warning`, and no product name means no result. The screen puts the values into the form with `esc()`/`value`, never as HTML, fills only empty fields, and nothing is saved until the admin presses Save. The photo is not stored by the read. If the chemical is saved with a photo, `POST /api/chemicals/:id/label-photo` keeps it in R2 at `chemicals/<id>/label-<uuid>.jpg` (table `chemical_label_photos`, one per chemical, deleted with the chemical) and the chemical page shows it. With no AI, or when the call fails, the endpoint answers `{ok:false, message}` (HTTP 200) and the screen falls back to the plain form. In demo mode every POST, these included, is refused before any AI call or save.
+
+**Find SDS** (`public/lib/find-sds.js`): a plain link, opened with `target="_blank" rel="noopener noreferrer"`, to a web search for supplier, name, product code and "SDS Australia" (URL-encoded), or to the supplier's own SDS search page when the supplier is on the short list in `public/lib/sds-suppliers.js`. Add a supplier only after opening its page and checking that it searches safety data sheets; when in doubt leave it out. No search API, key or scraping is involved.
+
 ### Model for reading photos
 
 Separate setting per provider, `ai_vision_model_<provider>` (empty = default), returned by `GET /api/settings/ai` as `vision: {model, supports_images, default_model}` and set with `PUT {vision_model}`.

@@ -445,3 +445,12 @@ CREATE TABLE IF NOT EXISTS audit_ai_log (
   created_at TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_aailog_user_time ON audit_ai_log(user_id, created_at);
+
+-- The photo of a product label, kept with a chemical only when an admin saved the chemical from "Add from label photo". One per chemical.
+CREATE TABLE IF NOT EXISTS chemical_label_photos (
+  chemical_id INTEGER PRIMARY KEY REFERENCES chemicals(id) ON DELETE CASCADE,
+  r2_key TEXT NOT NULL,
+  bytes INTEGER NOT NULL,
+  uploaded_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);

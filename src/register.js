@@ -45,6 +45,7 @@ import {
   effective, normaliseClassification, parsePictogramList, PICTOGRAM_CODES, computePlaceTotals,
 } from "../public/lib/ghs-ref.mjs";
 import { deleteSdsDocument } from "./sds.js";
+import { deleteLabelPhotos } from "./label-photo.js";
 
 // ---------------------------------------------------------------- vocabulary
 
@@ -597,7 +598,9 @@ export async function handleGetChemical(c) {
     stmts.push(env.DB.prepare(`SELECT ${SDS_PUBLIC} FROM sds s WHERE s.id = ?`).bind(chem.sds_id));
     stmts.push(env.DB.prepare("SELECT id, product_name FROM chemicals WHERE sds_id = ? AND id != ? ORDER BY id LIMIT 50").bind(chem.sds_id, id));
   }
+  stmts.push(env.DB.prepare("SELECT 1 AS yes FROM chemical_label_photos WHERE chemical_id = ?").bind(id));
   const res = await env.DB.batch(stmts);
+  const hasLabelPhoto = res[res.length - 1].results.length > 0;
   const assessment = res[0].results[0] || null;
   let sds = null, sdsProducts = [], sdsProductsTotal = 0;
   if (chem.sds_id) {
@@ -617,7 +620,7 @@ export async function handleGetChemical(c) {
   }
   chem.review_status = reviewStatus(chem.review_due, chem.sds_id, today);
   decorateChemical(chem);
-  return json({ chemical: chem, sds, sds_products: sdsProducts, sds_products_total: sdsProductsTotal, assessment, places: res[1].results });
+  return json({ chemical: chem, sds, sds_products: sdsProducts, sds_products_total: sdsProductsTotal, assessment, places: res[1].results, has_label_photo: hasLabelPhoto });
 }
 
 export async function handleHistory(c) {
@@ -693,6 +696,7 @@ export async function handleDeleteChemical(c) {
   const id = cleanId(c.p[0], "Chemical");
   const chem = await env.DB.prepare("SELECT id, sds_id FROM chemicals WHERE id = ?").bind(id).first();
   if (!chem) throw new ApiError(404, "Chemical not found");
+  await deleteLabelPhotos(env, id);
   await env.DB.batch([
     env.DB.prepare("DELETE FROM assessment_controls WHERE assessment_id IN (SELECT id FROM assessments WHERE chemical_id = ?)").bind(id),
     env.DB.prepare("DELETE FROM assessments WHERE chemical_id = ?").bind(id),

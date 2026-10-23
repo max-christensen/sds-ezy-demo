@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "vendor": "node scripts/vendor.mjs",
-    "deploy": "wrangler deploy",
+    "deploy": "node scripts/deploy.mjs",
     "db:init": "wrangler d1 execute DB --remote --yes --file=./schema.sql",
     "db:init:local": "node scripts/dev.mjs --wrangler d1 execute DB --local --file=./schema.sql",
     "test": "node --test --test-concurrency=1 tests/*.test.mjs",

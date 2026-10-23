@@ -22,7 +22,8 @@ documentation ("Deploy buttons"), it:
 npm run predeploy      node scripts/bump-version.mjs && node scripts/build-schema.mjs
                        writes public/app-version.js (a hash of the app files) so phones replace their cached copy,
                        and src/schema.generated.js (schema.sql split into statements)
-wrangler deploy
+node scripts/deploy.mjs   wrangler deploy; if the upload fails with "D1 binding 'DB' references database ... which was not found" (code 10181
+                       or 7404) it says what the account has, waits and tries again (about 4 minutes in all), then stops with instructions
 ```
 
 * **The Worker creates its own tables.** The first request after a deploy checks a `schema_hash` row in the `settings` table; if it is missing or
@@ -47,6 +48,21 @@ wrangler deploy
   straight after the deploy.** If you want a guard, add a `SETUP_KEY` secret in the Cloudflare dashboard (Workers, your Worker, Settings, Variables and Secrets)
   BEFORE you first open the address; setup then asks for it. A project that wants the button itself to prompt for it can add an active `SETUP_KEY=` line to
   `.dev.vars.example`, which trades the "nothing to type" first run for a prompt.
+
+## If the build says the D1 database was not found (code 10181 or 7404)
+
+Seen on two real button deploys from a fresh account setup, with the setup page showing "Create new" for the D1 database and the R2 bucket:
+
+1. Old deploy script: `wrangler d1 execute DB --remote` failed with `The database <id> could not be found [code: 7404]`.
+2. Plain `wrangler deploy`: assets uploaded, then `D1 binding 'DB' references database '<id>' which was not found [code: 10181]`.
+
+The R2 bucket was created each time, the D1 database was not there afterwards, and the ID differed between attempts (the button wrote a new one each time). Picking a database made by hand on the setup page worked.
+
+**What was checked.** Our `wrangler.toml` and Wrangla's (which worked on 16 October) differ only in the worker, database, bucket and binding names, our `[ai]` block and a longer comment; the placeholder `database_id = "REPLACE_WITH_YOUR_DATABASE_ID"`, the `DB` binding, `compatibility_date` and `[assets]` are identical. `package.json` differs in the `cloudflare.bindings` descriptions. Nothing in either file explains a database that is never created. Cloudflare's documentation says the button "will update the Wrangler configuration where applicable for newly created resources", says nothing more about D1 placeholders, and lists the default Workers Builds token as able to edit Workers Scripts, KV and R2 but not D1. The same two codes are an open, unexplained platform report (cloudflare/developer-platform#69, August to October 2026: a database that exists but is "not found" to `d1 info`, `d1 execute --remote` and the Worker upload).
+
+**So there are three possible causes, and the config cannot tell them apart:** (a) a database that was just created is not yet visible to the Worker upload; (b) the button wrote an ID for a database it never created (or removed again when the build failed); (c) the build's token cannot see or create D1 databases. The deploy script cannot fix (b) or (c), but its log tells you which one it is: it lists the account's databases after the first failure and prints one of "the account DOES have that database" (a), "NO such database" (b), "different id" (a stale ID), or "could not list" (probably c).
+
+**What to do for a stranger when it fails:** create a D1 database in the dashboard (Storage & databases > D1), start the button again and, on the setup page, choose "Use existing" for the D1 database and pick it. This is the route that has worked. The app creates its own tables on first run, so nothing else is needed.
 
 ## How the committed placeholder and your own local file coexist
 

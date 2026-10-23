@@ -142,6 +142,13 @@
       <div style="margin-top:10px">${App.disclaimerHtml()}</div>`);
   }
 
+  // A "Find SDS" link (new tab) for a chemical with no SDS: the supplier's own search page if known, else a web search.
+  function findSdsButton(c) {
+    const F = window.SDSLib && window.SDSLib.findSds;
+    const l = F && F.findSdsLink({ name: c.product_name, supplier: c.supplier, code: c.product_codes });
+    return l && l.url ? ` <a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">Find SDS</a>` : '';
+  }
+
   // ------------------------------------------------------------ view screen
   async function renderView(root, id, params) {
     root.innerHTML = App.loadingHtml('Loading chemical...');
@@ -153,6 +160,8 @@
     }
     const c = d.chemical, s = d.sds, a = d.assessment, admin = App.isAdmin();
     const sdsUnv = new Set(list(s && s.unverified));
+    // "Find SDS" on the no-SDS card needs the link builder; load it only when it will be shown, and carry on without it if it will not load.
+    if (!s && admin) { try { await Promise.all([['/lib/sds-suppliers.js', 'sdsSuppliers'], ['/lib/find-sds.js', 'findSds']].filter(([, k]) => !(window.SDSLib && window.SDSLib[k])).map(([u]) => App.loadScript(u))); } catch (e) { /* the button is simply left out */ } }
     document.title = c.product_name + ' - ' + App.companyName();
     const unvAll = [...new Set([...sdsUnv, ...list(a && a.unverified)])];
 
@@ -186,6 +195,8 @@
       ${kvRow('Hazardous or not', { html: App.decisionBadge(c.decision) + App.overrideMark(c.decision_overridden, 'decision') })}
     </dl></section>`;
 
+    if (d.has_label_photo) html += `<section class="card"><h2>Label photo</h2><img src="/api/chemicals/${c.id}/label-photo" alt="Photo of the product label" style="max-width:100%;max-height:360px;border-radius:6px"></section>`;
+
     // Classification from the poster
     html += classificationCard(d, admin);
 
@@ -194,7 +205,7 @@
     const total = d.sds_products_total != null ? d.sds_products_total : (d.sds_products || []).length;
     html += `<section class="card"><div class="card-head"><h2>Safety data sheet</h2>${s && s.has_file ? `<a class="btn primary no-print" href="/api/sds/${s.id}/file" target="_blank" rel="noopener">View the PDF</a>` : ''}</div>`;
     if (!s) {
-      html += `<div class="empty-state" style="padding:18px"><h2>No SDS on file</h2><p>${admin ? 'Attach the safety data sheet so the hazard details and review date can be kept up to date.' : 'Ask an admin to attach one, or upload it from Upload SDS.'}</p>${admin ? `<a class="btn primary" href="#/chemical/${c.id}/edit?focus=sds">Attach an SDS</a>` : '<a class="btn" href="#/upload">Upload SDS</a>'}</div>`;
+      html += `<div class="empty-state" style="padding:18px"><h2>No SDS on file</h2><p>${admin ? 'Attach the safety data sheet so the hazard details and review date can be kept up to date.' : 'Ask an admin to attach one, or upload it from Upload SDS.'}</p>${admin ? `<a class="btn primary" href="#/chemical/${c.id}/edit?focus=sds">Attach an SDS</a>${findSdsButton(c)}` : '<a class="btn" href="#/upload">Upload SDS</a>'}</div>`;
     } else {
       html += `<dl class="kv">
         ${kvRow('Issue date', s.issue_date ? App.fmtDate(s.issue_date) : '', 'issue_date', sdsUnv)}

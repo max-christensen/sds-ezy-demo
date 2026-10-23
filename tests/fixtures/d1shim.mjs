@@ -43,7 +43,7 @@ export function makeR2() {
     store,
     async put(key, body) { store.set(key, body); },
     async get(key) { return store.has(key) ? { body: store.get(key) } : null; },
-    async delete(key) { store.delete(key); },
+    async delete(key) { for (const k of Array.isArray(key) ? key : [key]) store.delete(k); }, // real R2 accepts one key or an array
   };
 }
 

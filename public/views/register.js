@@ -71,7 +71,7 @@
         root.innerHTML = `
           <div class="topbar">
             <div><h1>${title}</h1><p class="sub">${hazardousOnly ? 'Chemicals classed as hazardous, with their pictograms and signal word. The ADG class is for illustration only.' : 'Every chemical on site.'}</p></div>
-            <div class="actions no-print"><button type="button" id="printBtn">Print</button><button type="button" id="csvBtn">Download CSV</button>${App.isAdmin() ? '' : ''}</div>
+            <div class="actions no-print"><button type="button" id="printBtn">Print</button><button type="button" id="csvBtn">Download CSV</button>${App.isAdmin() ? '<a class="btn primary" href="#/chemical/new">Add a chemical</a>' : ''}</div>
           </div>
           ${App.disclaimerHtml()}
           <div class="reg-tools no-print">

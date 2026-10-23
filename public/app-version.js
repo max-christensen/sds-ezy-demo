@@ -1,4 +1,4 @@
-self.APP_VERSION = "319443a0e7a8cbd8";
+self.APP_VERSION = "7738905f30bb56a4";
 self.APP_SHELL = [
   "/",
   "/app-version.js",
@@ -21,6 +21,7 @@ self.APP_SHELL = [
   "/lib/audit-report.js",
   "/lib/audit-store.js",
   "/lib/export-model.js",
+  "/lib/find-sds.js",
   "/lib/ghs-ref.mjs",
   "/lib/import-map.js",
   "/lib/manifest-layout.js",
@@ -32,6 +33,7 @@ self.APP_SHELL = [
   "/lib/photo.js",
   "/lib/qr.js",
   "/lib/sds-hash.js",
+  "/lib/sds-suppliers.js",
   "/lib/xlsx-build.js",
   "/lib/zip-build.js",
   "/manifest.webmanifest",
@@ -50,6 +52,7 @@ self.APP_SHELL = [
   "/views/audit-summary.js",
   "/views/audit.js",
   "/views/audits.js",
+  "/views/chemical-new.js",
   "/views/chemical.js",
   "/views/disposals.js",
   "/views/findings.js",

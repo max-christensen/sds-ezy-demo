@@ -1,5 +1,5 @@
 // GENERATED from schema.sql by scripts/build-schema.mjs (npm run predeploy). Do not edit by hand.
-export const SCHEMA_HASH = "38f7813139ea7ff4";
+export const SCHEMA_HASH = "71ef3111ca19211f";
 export const SCHEMA_STATEMENTS = [
  "CREATE TABLE IF NOT EXISTS users (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  name TEXT NOT NULL,\n  email TEXT NOT NULL UNIQUE,\n  password_hash TEXT NOT NULL,\n  role TEXT NOT NULL DEFAULT 'user',      \n  color TEXT NOT NULL DEFAULT '#3B6E71',\n  active INTEGER NOT NULL DEFAULT 1,\n  created_at TEXT NOT NULL DEFAULT (datetime('now'))\n)",
  "CREATE TABLE IF NOT EXISTS settings (\n  key TEXT PRIMARY KEY,\n  value TEXT\n)",
@@ -54,5 +54,6 @@ export const SCHEMA_STATEMENTS = [
  "CREATE TABLE IF NOT EXISTS place_audit_summary (\n  place_id INTEGER PRIMARY KEY REFERENCES places(id),\n  last_audit_id INTEGER NOT NULL,\n  last_audited_at TEXT NOT NULL                   \n)",
  "CREATE INDEX IF NOT EXISTS idx_pas_when ON place_audit_summary(last_audited_at)",
  "CREATE TABLE IF NOT EXISTS audit_ai_log (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,\n  created_at TEXT NOT NULL\n)",
- "CREATE INDEX IF NOT EXISTS idx_aailog_user_time ON audit_ai_log(user_id, created_at)"
+ "CREATE INDEX IF NOT EXISTS idx_aailog_user_time ON audit_ai_log(user_id, created_at)",
+ "CREATE TABLE IF NOT EXISTS chemical_label_photos (\n  chemical_id INTEGER PRIMARY KEY REFERENCES chemicals(id) ON DELETE CASCADE,\n  r2_key TEXT NOT NULL,\n  bytes INTEGER NOT NULL,\n  uploaded_by INTEGER REFERENCES users(id) ON DELETE SET NULL,\n  created_at TEXT NOT NULL DEFAULT (datetime('now'))\n)"
 ];
